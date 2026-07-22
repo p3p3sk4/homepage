@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,15 +7,52 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background-color: #f8f9fa;
   line-height: 1.5;
 
   --primary-text-color: #181820;
   --secondary-text-color: #5c5c62;
   --durability-text-color: #6a737d9c;
   --icon-color: #6a737d;
-  --border-color: #ff9a0045;
-  --text-decoration-color: #ff9a00;
+  --border-color: #0077b645;
+  --text-decoration-color: #0077b6;
+  --hover-bg-color: rgba(245, 245, 245, 0.6);
+}
+
+body.dark-mode {
+  background-color: #121212;
+  --primary-text-color: #f0f0f0;
+  --secondary-text-color: #c0c0c0;
+  --durability-text-color: #9a9a9a;
+  --icon-color: #c0c0c0;
+  --border-color: #0077b680;
+  --hover-bg-color: rgba(255, 255, 255, 0.06);
+}
+
+body.dark-mode .resume {
+  background-color: #1e1e1e;
+  border-color: #333;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--text-decoration-color);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
 }
 
 .container {
@@ -34,12 +73,26 @@ body {
   justify-content: space-between;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .resume {
   margin: 50px auto;
-  border: 1px solid #f5f5f5;
-  box-shadow: 1px 1px 7px 7px #f5f5f5;
+  background-color: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
   padding: 30px 0;
   max-width: 900px;
+  animation: fadeIn 0.8s ease-out forwards;
 }
 
 .resume__block {
@@ -83,6 +136,12 @@ body {
   text-decoration: none;
   display: flex;
   justify-content: start;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.contact-info__item:hover {
+  transform: translateX(5px);
+  color: var(--text-decoration-color);
 }
 
 .contact-info__item:not(:last-child) {
@@ -112,6 +171,12 @@ body {
   object-fit: cover;
   border: 3px solid;
   border-color: var(--text-decoration-color);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.contact-info__avatar:hover {
+  transform: scale(1.08);
+  box-shadow: 0 4px 15px rgba(0, 119, 182, 0.35); /* Sombra Azul */
 }
 
 /* ==========================================
@@ -136,6 +201,12 @@ body {
 
 .intro__icon path {
   fill: var(--text-decoration-color);
+}
+
+.intro__icon--end {
+  transform: rotate(180deg);
+  margin-left: 10px;
+  vertical-align: text-top;
 }
 
 .intro_text {
@@ -252,6 +323,67 @@ body {
 }
 
 /* ==========================================
+   Unificación de Secciones e Interactividad
+   ========================================== */
+.section-title {
+  color: var(--secondary-text-color);
+  text-align: left;
+  margin-top: 25px;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
+
+.languages-list,
+.skills-block,
+.certificates-list,
+.hobbies-block {
+  color: var(--secondary-text-color);
+  margin-bottom: 20px;
+}
+
+.languages-list,
+.certificates-list {
+  padding-left: 20px;
+}
+
+.skills-block p,
+.hobbies-block p {
+  margin-bottom: 10px;
+}
+
+.languages-list li::marker,
+.certificates-list li::marker,
+.experiences__company-project-responsibilities li::marker {
+  color: var(--text-decoration-color);
+  font-size: 1.1em;
+}
+
+.skills-block strong,
+.hobbies-block strong {
+  color: var(--primary-text-color);
+  background-color: rgba(0, 119, 182, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.skills-block p:hover strong,
+.hobbies-block p:hover strong {
+  background-color: var(--text-decoration-color);
+  color: #ffffff;
+}
+
+.section {
+  padding: 10px 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.section:hover {
+   background-color: var(--hover-bg-color);
+}
+
+/* ==========================================
    Media Query
    ========================================== */
 @media screen and (max-width: 576px) {
@@ -271,4 +403,70 @@ body {
   .experiences {
     margin-right: 0;
   }
+}
+
+/* ==========================================
+   Separation of Intro and Experience/Education Cards
+   ========================================== */
+.intro {
+  margin-bottom: 25px;
+}
+
+.resume__block:has(.intro) {
+  margin-bottom: 30px;
+  padding-bottom: 35px;
+}
+
+.experiences,
+.additional-info__education {
+  padding: 15px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.experiences:hover,
+.additional-info__education:hover {
+  background-color: var(--hover-bg-color)
+}
+
+/* ==========================================
+   Hierarchy and Separation Adjustments in Education
+   ========================================== */
+.additional-info__education-university,
+.additional-info__education {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.additional-info__education-university-speciality {
+  order: 1 !important; /* Pasa el título en primer lugar */
+  text-decoration-color: var(--text-decoration-color);
+  text-decoration-line: underline;
+  margin-bottom: 4px;
+}
+
+.additional-info__education-university-durability {
+  order: 2 !important;
+  margin-bottom: 8px;
+}
+
+.additional-info__education-university-name {
+  order: 3 !important; 
+  margin-bottom: 8px;
+}
+
+.additional-info__education-university-speciality-description,
+.additional-info__education p {
+  order: 4 !important;
+}
+
+/* ==========================================
+   Footer
+   ========================================== */
+.footer {
+  text-align: center;
+  padding: 20px;
+  color: var(--secondary-text-color);
+  font-size: 0.85rem;
 }
